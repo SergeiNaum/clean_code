@@ -19,7 +19,7 @@ class SMTPEmailService:
         Отправляем email.
         """
         context = ssl.create_default_context()
-        local_smtp = Path(self.settings.base_dir) / 'users' / 'smtp' / 'certs' / 'cert.pem'
+        local_smtp = Path(self.settings.base_dir) / "users" / "smtp" / "certs" / "cert.pem"
         if Path(local_smtp).is_file():
             context.load_verify_locations(cafile=local_smtp)
         with smtplib.SMTP(self.settings.smtp.host, self.settings.smtp.port) as server:

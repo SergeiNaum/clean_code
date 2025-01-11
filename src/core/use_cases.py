@@ -4,7 +4,7 @@
 
 from typing import Protocol, TypeVar
 
-UseCaseResultSchemaType = TypeVar('UseCaseResultSchemaType', covariant=True)
+UseCaseResultSchemaType = TypeVar("UseCaseResultSchemaType", covariant=True)
 
 
 class UseCaseProtocol(Protocol[UseCaseResultSchemaType]):

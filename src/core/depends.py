@@ -12,7 +12,7 @@ async def get_cache_service(settings: SettingsService) -> CacheProtocol:
         await CacheManager.init(settings)
     if CacheManager.cache is not None:
         return CacheManager.cache
-    raise ValueError('Cache is not initialize')
+    raise ValueError("Cache is not initialize")
 
 
 CacheService = Annotated[CacheProtocol, Depends(get_cache_service)]

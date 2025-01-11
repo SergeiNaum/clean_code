@@ -1,5 +1,4 @@
-from pydantic import BaseModel, EmailStr
-
+from pydantic import BaseModel, EmailStr, Field
 
 
 class UserRegisterSchema(BaseModel):
@@ -14,4 +13,4 @@ class AccessToken(BaseModel):
 
 
 class UserSchema(UserRegisterSchema):
-    id: int
+    id: int = Field(default_factory=int)

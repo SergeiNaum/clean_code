@@ -7,9 +7,9 @@ from pydantic import BaseModel, Json, RedisDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 __all__ = (
-    'get_settings',
-    'Settings',
-    'settings',
+    "get_settings",
+    "Settings",
+    "settings",
 )
 
 
@@ -23,13 +23,13 @@ class Db(BaseModel):
     user: str
     password: str
     name: str
-    scheme: str = 'public'
+    scheme: str = "public"
 
-    provider: str = 'postgresql+psycopg_async'
+    provider: str = "postgresql+psycopg_async"
 
     @property
     def dsn(self) -> str:
-        return f'{self.provider}://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}'
+        return f"{self.provider}://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}"
 
 
 class S3(BaseModel):
@@ -50,9 +50,9 @@ class Storage(BaseModel):
     Настройки для хранилища.
     """
 
-    provider: Literal['local', 's3'] = 'local'
+    provider: Literal["local", "s3"] = "local"
 
-    dir: str | None = path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'storage')
+    dir: str | None = path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "storage")
     s3: S3 | None = None
 
 
@@ -61,7 +61,7 @@ class Cache(BaseModel):
     Настройки кеша.
     """
 
-    prefix: str = 'boiler-plate'
+    prefix: str = "boiler-plate"
 
 
 class JWT(BaseModel):
@@ -83,7 +83,7 @@ class JWTCookie(BaseModel):
     cookie_max_age: int
     cookie_path: str
     cookie_secure: bool
-    cookie_samesite: Literal['lax', 'strict', 'none']
+    cookie_samesite: Literal["lax", "strict", "none"]
 
 
 class Settings(BaseSettings):
@@ -108,11 +108,11 @@ class Settings(BaseSettings):
     jwt_cookie: JWTCookie
 
     model_config = SettingsConfigDict(
-        env_file='.env',
-        env_file_encoding='utf-8',
-        env_nested_delimiter='__',
+        env_file=".env",
+        env_file_encoding="utf-8",
+        env_nested_delimiter="__",
         case_sensitive=False,
-        extra='ignore',
+        extra="ignore",
     )
 
 

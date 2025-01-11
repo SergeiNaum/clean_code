@@ -8,7 +8,7 @@ from src.tools.app import app
 from src.tools.utils import typer_async
 
 
-@app.command(name='encrypt', help='poetry run python manage.py encrypt [data:str]')
+@app.command(name="encrypt", help="poetry run python manage.py encrypt [data:str]")
 @typer_async
 async def encrypt(data: Annotated[str, typer.Argument()]):
     cryptography_service = await get_cryptography_service(settings)
@@ -16,8 +16,8 @@ async def encrypt(data: Annotated[str, typer.Argument()]):
 
 
 @app.command(
-    name='decrypt',
-    help='poetry run python manage.py decrypt [data:str]',
+    name="decrypt",
+    help="poetry run python manage.py decrypt [data:str]",
 )
 @typer_async
 async def decrypt(data: Annotated[str, typer.Argument()]):

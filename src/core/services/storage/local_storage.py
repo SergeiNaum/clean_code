@@ -44,13 +44,13 @@ class LocalStorage:
 
     async def read(self, name: str | Path) -> str | bytes:
         path = self.work_dir / name
-        async with open(path, 'rb') as f:
-            return (await f.read()).decode('utf-8')
+        async with open(path, "rb") as f:
+            return (await f.read()).decode("utf-8")
 
     @asynccontextmanager
     async def stream_read(self, name: str | Path) -> AsyncGenerator[StreamReaderProtocol, None]:
         path = self.work_dir / name
-        async with open(path, 'rb') as f:
+        async with open(path, "rb") as f:
             yield StreamReader(f)
 
     async def stream_write(self, name: str, stream: StreamReaderProtocol, length: int = -1, part_size: int = 0) -> str:
@@ -58,12 +58,12 @@ class LocalStorage:
         Загрузка файла на сервер с помощью потока загрузки.
         """
         if length != -1:
-            self.logger.warning('Параметр length не используется для LocalStorage.')
+            self.logger.warning("Параметр length не используется для LocalStorage.")
         if part_size != 0:
-            self.logger.warning('Параметр part_size не используется для LocalStorage.')
+            self.logger.warning("Параметр part_size не используется для LocalStorage.")
         path = self.work_dir / name
         is_co_function = asyncio.iscoroutinefunction(stream.read)
-        async with open(path, 'wb') as f:
+        async with open(path, "wb") as f:
             data = cast(bytes, await stream.read() if is_co_function else stream.read())
             await f.write(data)
         return str(path)
@@ -72,8 +72,8 @@ class LocalStorage:
         path = self.work_dir / name
         await aos.makedirs(path.parent, exist_ok=True)
 
-        async with open(path, mode='wb') as f:
-            await f.write(content.encode('utf-8') if isinstance(content, str) else content)
+        async with open(path, mode="wb") as f:
+            await f.write(content.encode("utf-8") if isinstance(content, str) else content)
 
     async def delete(self, name: str | Path) -> None:
         path = self.work_dir / name

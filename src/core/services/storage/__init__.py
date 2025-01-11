@@ -21,14 +21,14 @@ from .s3_storage import S3Storage
 from .schemas import LocalStorageParamsSchema, S3StorageParamsSchema
 
 __all__ = (
-    'StorageFactory',
-    'StorageService',
-    'StorageProtocol',
-    'S3Repository',
-    'S3RepositoryProtocol',
-    'get_storage_factory',
-    'StreamReaderProtocol',
-    'StreamReader',
+    "StorageFactory",
+    "StorageService",
+    "StorageProtocol",
+    "S3Repository",
+    "S3RepositoryProtocol",
+    "get_storage_factory",
+    "StreamReaderProtocol",
+    "StreamReader",
 )
 
 
@@ -114,25 +114,20 @@ StorageParamsSchema = S3StorageParamsSchema | LocalStorageParamsSchema
 
 class StorageFactoryProtocol(Protocol):
     @overload
-    async def make(self: Self, kind: StorageEnum, params: S3StorageParamsSchema) -> StorageProtocol:
-        ...
+    async def make(self: Self, kind: StorageEnum, params: S3StorageParamsSchema) -> StorageProtocol: ...
 
     @overload
-    async def make(self: Self, kind: StorageEnum, params: LocalStorageParamsSchema) -> StorageProtocol:
-        ...
+    async def make(self: Self, kind: StorageEnum, params: LocalStorageParamsSchema) -> StorageProtocol: ...
 
-    async def make(self, kind: StorageEnum, params: StorageParamsSchema) -> StorageProtocol:
-        ...
+    async def make(self, kind: StorageEnum, params: StorageParamsSchema) -> StorageProtocol: ...
 
 
 class StorageFactoryImpl:
     @overload
-    async def make(self: Self, kind: StorageEnum, params: S3StorageParamsSchema) -> StorageProtocol:
-        ...
+    async def make(self: Self, kind: StorageEnum, params: S3StorageParamsSchema) -> StorageProtocol: ...
 
     @overload
-    async def make(self: Self, kind: StorageEnum, params: LocalStorageParamsSchema) -> StorageProtocol:
-        ...
+    async def make(self: Self, kind: StorageEnum, params: LocalStorageParamsSchema) -> StorageProtocol: ...
 
     async def make(self: Self, kind: StorageEnum, params: StorageParamsSchema) -> StorageProtocol:
         if kind == StorageEnum.S3 and isinstance(params, S3StorageParamsSchema):
@@ -156,13 +151,13 @@ StorageFactory = Annotated[StorageFactoryProtocol, Depends(get_storage_factory)]
 
 
 async def get_storage_service(storage_factory: StorageFactory, settings: SettingsService) -> StorageProtocol:
-    if settings.storage.provider == 's3' and settings.storage.s3 is not None:
+    if settings.storage.provider == "s3" and settings.storage.s3 is not None:
         return await storage_factory.make(
             StorageEnum.S3, S3StorageParamsSchema.model_validate(settings.storage.s3.model_dump())
         )
-    elif settings.storage.provider == 'local' and settings.storage.dir is not None:
+    elif settings.storage.provider == "local" and settings.storage.dir is not None:
         return await storage_factory.make(StorageEnum.LOCAL, LocalStorageParamsSchema(path=settings.storage.dir))
-    raise ValueError(f'Storage {settings.storage.provider} not allowed')
+    raise ValueError(f"Storage {settings.storage.provider} not allowed")
 
 
 StorageService = Annotated[StorageProtocol, Depends(get_storage_service)]

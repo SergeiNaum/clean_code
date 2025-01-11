@@ -1,5 +1,4 @@
-from typing import Protocol, Self, Annotated
-from fastapi import Depends
+from typing import Protocol, Self
 
 from src.settings import Settings
 
@@ -9,7 +8,7 @@ class NotificationRepositoryProtocol(Protocol):
         pass
 
 
-class NotificationEmailRepositoryImpl:
+class NotificationEmailRepository:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
 
@@ -18,7 +17,7 @@ class NotificationEmailRepositoryImpl:
         return True
 
 
-class NotificationSmslRepositoryImpl:
+class NotificationSmslRepository:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
 

@@ -8,7 +8,7 @@ from random import choice
 
 
 def make_random_string(size: int) -> str:
-    return ''.join(choice(string.ascii_letters + string.digits) for _ in range(size))
+    return "".join(choice(string.ascii_letters + string.digits) for _ in range(size))
 
 
 def encrypt_base64(raw_path: str) -> str:

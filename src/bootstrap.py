@@ -33,8 +33,8 @@ async def lifespan(app: FastAPI):
 def create_app() -> FastAPI:
     app = FastAPI(
         lifespan=lifespan,
-        docs_url='/docs',
-        openapi_url='/docs.json',
+        docs_url="/docs",
+        openapi_url="/docs.json",
     )
 
     app = apply_routes(apply_middleware(app))

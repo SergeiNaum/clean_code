@@ -8,8 +8,8 @@ from typing import Callable, TypeVar
 
 from typing_extensions import ParamSpec
 
-R = TypeVar('R')
-P = ParamSpec('P')
+R = TypeVar("R")
+P = ParamSpec("P")
 
 
 async def run_in_threadpool(fn: Callable[P, R], *args: P.args, **kwargs: P.kwargs) -> R:

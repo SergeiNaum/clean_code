@@ -20,7 +20,7 @@ class S3Storage:
     def __init__(self, params: S3StorageParamsSchema):
         self.params = params
         self.client = miniopy_async.Minio(
-            f'{self.params.endpoint}:{self.params.port}',
+            f"{self.params.endpoint}:{self.params.port}",
             access_key=self.params.access_key,
             secret_key=self.params.secret_key,
             secure=self.params.secure,
@@ -53,8 +53,8 @@ class S3Storage:
 
     async def listdir(self, name: str | Path) -> list[str]:
         directory: str = str(name) if isinstance(name, Path) else name
-        if directory and directory[-1] != '/':
-            directory += '/'
+        if directory and directory[-1] != "/":
+            directory += "/"
         objects = await self.client.list_objects(self.bucket, prefix=directory)
         return [str(obj.object_name) for obj in objects] if objects else []
 
@@ -84,7 +84,7 @@ class S3Storage:
         return result.object_name
 
     async def write(self, name: str | Path, content: str | bytes):
-        content = content.encode('utf-8') if isinstance(content, str) else content
+        content = content.encode("utf-8") if isinstance(content, str) else content
         data = io.BytesIO(content)
         await self.client.put_object(self.bucket, str(name), data, len(content))
 

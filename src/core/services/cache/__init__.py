@@ -18,9 +18,9 @@ from .inmemory_cache import InMemoryCache as InMemoryCache
 from .redis_cache import RedisCache as RedisCache
 
 __all__ = (
-    'CacheProtocol',
-    'CacheManager',
-    'cache',
+    "CacheProtocol",
+    "CacheManager",
+    "cache",
 )
 
 

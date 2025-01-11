@@ -4,8 +4,8 @@ from typing import TypeAlias
 from pydantic import BaseModel
 
 __all__ = (
-    'CertificateSchema',
-    'make_ssl_context',
+    "CertificateSchema",
+    "make_ssl_context",
 )
 
 

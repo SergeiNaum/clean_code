@@ -34,7 +34,7 @@ class StatusOkSchema(BaseModel):
     Схема успешного результата.
     """
 
-    status: str = 'ok'
+    status: str = "ok"
 
 
 class PaginationSchema(BaseModel):
@@ -46,7 +46,7 @@ class PaginationSchema(BaseModel):
     offset: int
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 class PaginationResultSchema(BaseModel, Generic[T]):
